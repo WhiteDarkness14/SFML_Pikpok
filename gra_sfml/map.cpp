@@ -59,4 +59,42 @@ void set_clouds(vector <map_Sprite> &map_cloud)
         map_cloud.emplace_back("cloud",550*(i+1)+rand()%200-100,200+rand()%300-150,210,0,size);
     }
 }
+void generate_obstacle(vector<vector<map_Sprite>>&birds, vector<map_Sprite>&mushrooms)
+{
+    for(int i=0;i<2;i++)
+    {
+        if(birds[i][0].getPosition().x<0) birds[i][0].to_move=false;
+        if(mushrooms[i].getPosition().x<0) mushrooms[i].to_move=false;
+    }
+
+    int randomize=rand()%10+1;
+    if(randomize>6)
+    {
+        if(!birds[0][0].to_move)
+        {
+            birds[0][0].to_move=true;
+            for(auto &bird:birds[0])
+            bird.setPosition(2000,630);
+        }
+        else if(!birds[1][0].to_move)
+        {
+            birds[1][0].to_move=true;
+            for(auto &bird:birds[0])
+            bird.setPosition(2000,630);
+        }
+    }
+    else
+    {
+        if(!mushrooms[0].to_move)
+        {
+            mushrooms[0].to_move=true;
+            mushrooms[0].setPosition(2000,835);
+        }
+        else if(!mushrooms[1].to_move)
+        {
+            mushrooms[1].to_move=true;
+            mushrooms[1].setPosition(2000,835);
+        }
+    }
+}
 

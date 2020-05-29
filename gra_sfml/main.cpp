@@ -12,13 +12,18 @@ int main()
     map_Sprite map_sky("sky",0,0,0,0,1);
     vector <map_Sprite> map_cloud;
     set_clouds(map_cloud);
-//    vector <map_Sprite> mushrooms;
-//    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
-//    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
+    vector <map_Sprite> mushrooms;
+    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
+    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
+    vector <map_Sprite> bird1;
+    set_frames(bird1,"bird/brid",500,630,0,0,10);
+    vector <map_Sprite> bird2;
+    set_frames(bird2,"bird/brid",500,630,0,0,10);
 
-    map_Sprite mushroom("mushroom",1300,835,0,0,0.25);
-    vector <map_Sprite> birds;
-    set_frames(birds,"bird/brid",500,500,0,0,10);
+    vector<vector<map_Sprite>> birds;
+    birds.emplace_back(bird1);
+    birds.emplace_back(bird2);
+
 
 
 
@@ -51,7 +56,7 @@ int main()
     int animation_move=1; //aktualna animacja biegania
     int actual_animation=0; // aktualna animacja
     Clock clock;
-    float actual_clock=0, speed_clock=1, bird_clock=0; // liczniki czasów
+    float actual_clock=0, speed_clock=1, bird_clock=0, obstacle_clock=0; // liczniki czasów
     float speed=0; // predkosc gry
     float frame=0; // klatka animacji Pikpoka
     float frame_bird=0; // klatka animacji Brida
@@ -102,6 +107,7 @@ int main()
         actual_clock+=elapsed.asMilliseconds();
         speed_clock+=elapsed.asSeconds();
         bird_clock+=elapsed.asSeconds();
+        obstacle_clock+=elapsed.asSeconds();
 
 
 
@@ -182,14 +188,14 @@ int main()
                 cloud.setScale(scale,scale);
             }
         }
-        for(auto &bird:birds) // new clouds and move
-        {
-            bird.move(-speed,0);
-            if(bird.getPosition().x<-100)
-            {
-                bird.setPosition(2200,500);
-            }
-        }
+        //        for(auto &bird:birds) // bird move
+        //        {
+        //            bird.move(-speed,0);
+        //            if(bird.getPosition().x<-100)
+        //            {
+        //                bird.setPosition(2200,630);
+        //            }
+        //        }
 
 
 
@@ -199,29 +205,66 @@ int main()
             map_ground.setPosition(2045,900);
         }
 
-        mushroom.move(-speed,0); // move mushroms
-        if(mushroom.getPosition().x<-100) // looped mushroms
+        if(obstacle_clock>1&&run)
         {
-            mushroom.setPosition(2200,835);
+            obstacle_clock=0;
+            generate_obstacle(birds,mushrooms);
         }
-
-        if(to_dead&&Collision::PixelPerfectTest(boy_animation[animation][frame],mushroom)) // collision
-        {
-            animation=4;
-        }
-
-        boy_animation[animation][frame].setScale(scale,scale);
-        //DRAW
-
-        window.clear();
-        window.draw(map_sky);
         for( auto &cloud:map_cloud)
         {
             window.draw(cloud);
         }
+
+
+        for(int i=0;i<2;i++)
+        {
+            if(birds[i][0].to_move)
+            {
+                for(auto &bird:birds[i])
+                {
+                    bird.move(-speed,0);
+                }
+            }
+            if(mushrooms[i].to_move)
+            {
+                mushrooms[i].move(-speed,0);
+            }
+        }
+
+        //        mushroom.move(-speed,0); // move mushroms
+        //        if(mushroom.getPosition().x<-100) // looped mushroms
+        //        {
+        //            mushroom.setPosition(2200,835);
+        //        }
+
+        boy_animation[animation][frame].setScale(scale,scale); // dodge bird
+
+
+        //        if(to_dead&&(Collision::PixelPerfectTest(boy_animation[animation][frame],mushroom)||Collision::PixelPerfectTest(boy_animation[animation][frame],birds[frame_bird]))) // collision
+        //        {
+        //            animation=4;
+        //        }
+
+
+        //DRAW
+
+        window.clear();
+        window.draw(map_sky);
         window.draw(boy_animation[animation][frame]);
-        window.draw(birds[frame_bird]);
-        window.draw(mushroom);
+        for(int i=0;i<2;i++)
+        {
+            if(birds[i][0].to_move)
+            {
+                window.draw(birds[i][frame_bird]);
+            }
+            if(mushrooms[i].to_move)
+            {
+                window.draw(mushrooms[i]);
+            }
+        }
+
+        //        window.draw(birds[frame_bird]);
+        //        window.draw(mushroom);
         window.draw(map_ground);
 
         window.display();
