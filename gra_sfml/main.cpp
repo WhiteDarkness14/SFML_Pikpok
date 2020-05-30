@@ -16,9 +16,9 @@ int main()
     mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
     mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
     vector <map_Sprite> bird1;
-    set_frames(bird1,"bird/brid",500,630,0,0,10);
+    set_frames(bird1,"bird/brid",2000,630,0,0,10);
     vector <map_Sprite> bird2;
-    set_frames(bird2,"bird/brid",500,630,0,0,10);
+    set_frames(bird2,"bird/brid",2000,630,0,0,10);
 
     vector<vector<map_Sprite>> birds;
     birds.emplace_back(bird1);
@@ -86,15 +86,15 @@ int main()
                     run=true;
                 }
             }
-            else if(scale==0.5&&event.type ==Event::KeyPressed && event.key.code == Keyboard::Up)
+            else if(scale==0.5&&event.type ==Event::KeyPressed && event.key.code == Keyboard::Up && run)
             {
-                if(run) animation=3;
+                animation=3;
             }
-            else if (event.type ==Event::KeyPressed && event.key.code == Keyboard::Down)
+            else if (event.type ==Event::KeyPressed && event.key.code == Keyboard::Down && run)
             {
-                scale=0.25;
+               scale=0.25;
             }
-            else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Down)
+            else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Down && run)
             {
                 scale=0.5;
             }
@@ -188,14 +188,14 @@ int main()
                 cloud.setScale(scale,scale);
             }
         }
-        //        for(auto &bird:birds) // bird move
-        //        {
-        //            bird.move(-speed,0);
-        //            if(bird.getPosition().x<-100)
-        //            {
-        //                bird.setPosition(2200,630);
-        //            }
-        //        }
+//                for(auto &bird:birds[0]) // bird move
+//                {
+//                    bird.move(-speed,0);
+//                    if(bird.getPosition().x<-100)
+//                    {
+//                        bird.setPosition(2200,630);
+//                    }
+//                }
 
 
 
@@ -215,14 +215,13 @@ int main()
             window.draw(cloud);
         }
 
-
-        for(int i=0;i<2;i++)
+        for(int i=0;i<birds.size();i++)
         {
             if(birds[i][0].to_move)
             {
-                for(auto &bird:birds[i])
+                for(int j=0;j<birds[i].size();j++)
                 {
-                    bird.move(-speed,0);
+                    birds[i][j].move(-speed,0);
                 }
             }
             if(mushrooms[i].to_move)
