@@ -1,50 +1,46 @@
-﻿#include "other.h"
-#include "map.h"
+﻿#include "map_sprite.h"
+#include "boy_sprite.h"
+#include "obstacle_sprite.h"
 #include "collision.h"
 #include <iostream>
 int main()
 {
-
+    //    tworzenie okna
     RenderWindow window;
     window_set(window);
 
-    map_Sprite map_ground("grass",2045,900,2100,0,1); // nazwa pliku;posX;posY;originX;originY;scale
-    map_Sprite map_sky("sky",0,0,0,0,1);
+    //    tworzenie tła
+    map_Sprite map_ground("grass",2045,900,2100,0);
+    map_Sprite map_sky("sky",0,0,0,0);
     vector <map_Sprite> map_cloud;
     set_clouds(map_cloud);
-    vector <map_Sprite> mushrooms;
-    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
-    mushrooms.emplace_back("mushroom",1300,835,0,0,0.25);
-    vector <map_Sprite> bird1;
-    set_frames(bird1,"bird/brid",2000,630,0,0,10);
-    vector <map_Sprite> bird2;
-    set_frames(bird2,"bird/brid",2000,630,0,0,10);
 
-    vector<vector<map_Sprite>> birds;
+    //    tworzenie przeszkód
+    vector <obstacle_Sprite> mushrooms;
+    vector<vector<obstacle_Sprite>> birds;
+    set_mushrooms(mushrooms);
+    vector<obstacle_Sprite> bird1;
+    vector<obstacle_Sprite> bird2;
+    vector<obstacle_Sprite> bird3;
+    set_bird(bird1);
+    set_bird(bird2);
+    set_bird(bird3);
     birds.emplace_back(bird1);
     birds.emplace_back(bird2);
+    birds.emplace_back(bird3);
 
-
-
-
-    int PosX=300;
-    int PosY=923;
-    vector <map_Sprite> boy_walk;
-    set_frames(boy_walk,"b_walk/P_walk",PosX,PosY,145,490,15);
-    vector <map_Sprite> boy_run;
-    set_frames(boy_run,"b_run/run",PosX,PosY,145,490,15);
-    vector <map_Sprite> boy_jump;
-    set_frames_jump(boy_jump,"b_jump/jump",PosX,PosY,182,500,15);
-    vector <map_Sprite> boy_idle;
-    set_frames(boy_idle,"b_idle/idle",PosX,PosY,150,480,15);
-    vector <map_Sprite> boy_dead;
-    set_frames(boy_dead,"b_dead/dead",PosX,PosY,270,440,15);
-    for(auto &b:boy_dead)
-    {
-        b.setPosition(PosX,PosY+7);
-        PosX+=10;
-    }
-    vector <vector <map_Sprite>> boy_animation;
+    //     tworzenie postaci
+    vector <boy_Sprite> boy_idle;
+    set_boy_frames(boy_idle,"b_idle/idle",150,480);
+    vector <boy_Sprite> boy_walk;
+    set_boy_frames(boy_walk,"b_walk/P_walk",145,490);
+    vector <boy_Sprite> boy_run;
+    set_boy_frames(boy_run,"b_run/run",145,490);
+    vector <boy_Sprite> boy_jump;
+    set_boy_jump(boy_jump,"b_jump/jump",182,500);
+    vector <boy_Sprite> boy_dead;
+    set_boy_dead(boy_dead,"b_dead/dead",270,440);
+    vector <vector <boy_Sprite>> boy_animation;
     boy_animation.emplace_back(boy_idle);
     boy_animation.emplace_back(boy_walk);
     boy_animation.emplace_back(boy_run);
@@ -52,7 +48,7 @@ int main()
     boy_animation.emplace_back(boy_dead);
 
     bool run=false; // czy gra działa
-    int animation=0; // która animacja idle/walk/run/jump/dead
+    int animation=0; // która animacja idle/walk/run/jump/dead<
     int animation_move=1; //aktualna animacja biegania
     int actual_animation=0; // aktualna animacja
     Clock clock;
@@ -70,7 +66,6 @@ int main()
 
     while (window.isOpen())
     {
-
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -84,6 +79,17 @@ int main()
                     speed=7;
                     animation=1;
                     run=true;
+                    animation_move=1;
+                    actual_clock=0;
+                    speed_clock=0;
+                    bird_clock=0;
+                    obstacle_clock=0;
+                    for(int i=0;i<birds.size();i++)
+                    {
+                        birds[i][0].to_move=false;
+
+                        mushrooms[i].to_move=false;
+                    }
                 }
             }
             else if(scale==0.5&&event.type ==Event::KeyPressed && event.key.code == Keyboard::Up && run)
@@ -92,7 +98,7 @@ int main()
             }
             else if (event.type ==Event::KeyPressed && event.key.code == Keyboard::Down && run)
             {
-               scale=0.25;
+                scale=0.25;
             }
             else if (event.type == Event::KeyReleased && event.key.code == Keyboard::Down && run)
             {
@@ -188,16 +194,8 @@ int main()
                 cloud.setScale(scale,scale);
             }
         }
-//                for(auto &bird:birds[0]) // bird move
-//                {
-//                    bird.move(-speed,0);
-//                    if(bird.getPosition().x<-100)
-//                    {
-//                        bird.setPosition(2200,630);
-//                    }
-//                }
 
-
+        boy_animation[animation][frame].setScale(scale,scale); // dodge bird
 
         map_ground.move(-speed,0); // move ground
         if(map_ground.getPosition().x<0) // looped ground
@@ -205,15 +203,12 @@ int main()
             map_ground.setPosition(2045,900);
         }
 
-        if(obstacle_clock>1&&run)
+        if(obstacle_clock>1.2&&run)
         {
             obstacle_clock=0;
             generate_obstacle(birds,mushrooms);
         }
-        for( auto &cloud:map_cloud)
-        {
-            window.draw(cloud);
-        }
+
 
         for(int i=0;i<birds.size();i++)
         {
@@ -223,34 +218,33 @@ int main()
                 {
                     birds[i][j].move(-speed,0);
                 }
+                if(Collision::PixelPerfectTest(boy_animation[animation][frame],birds[i][frame_bird]))
+                {
+                    animation=4;
+                }
             }
             if(mushrooms[i].to_move)
             {
                 mushrooms[i].move(-speed,0);
+                if(Collision::PixelPerfectTest(boy_animation[animation][frame],mushrooms[i]))
+                {
+                    animation=4;
+                }
             }
+
         }
-
-        //        mushroom.move(-speed,0); // move mushroms
-        //        if(mushroom.getPosition().x<-100) // looped mushroms
-        //        {
-        //            mushroom.setPosition(2200,835);
-        //        }
-
-        boy_animation[animation][frame].setScale(scale,scale); // dodge bird
-
-
-        //        if(to_dead&&(Collision::PixelPerfectTest(boy_animation[animation][frame],mushroom)||Collision::PixelPerfectTest(boy_animation[animation][frame],birds[frame_bird]))) // collision
-        //        {
-        //            animation=4;
-        //        }
 
 
         //DRAW
 
         window.clear();
         window.draw(map_sky);
+        for( auto &cloud:map_cloud)
+        {
+            window.draw(cloud);
+        }
         window.draw(boy_animation[animation][frame]);
-        for(int i=0;i<2;i++)
+        for(int i=0;i<birds.size();i++)
         {
             if(birds[i][0].to_move)
             {
@@ -261,9 +255,6 @@ int main()
                 window.draw(mushrooms[i]);
             }
         }
-
-        //        window.draw(birds[frame_bird]);
-        //        window.draw(mushroom);
         window.draw(map_ground);
 
         window.display();
