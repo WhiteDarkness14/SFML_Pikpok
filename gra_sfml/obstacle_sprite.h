@@ -4,7 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include "collision.h"
-#include "boy_sprite.h"
+#include "character_sprite.h"
 using namespace std;
 using namespace sf;
 

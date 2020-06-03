@@ -3,10 +3,11 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 SOURCES += \
-        boy_sprite.cpp \
+        character_sprite.cpp \
         collision.cpp \
         main.cpp \
         map_sprite.cpp \
+        my_text.cpp \
         obstacle_sprite.cpp
 INCLUDEPATH += "C:/Users/48884/Documents/Studia/Semestr 2/PSIO/SFML-2.5.1/include"
 LIBS += -L"C:/Users/48884/Documents/Studia/Semestr 2/PSIO/SFML-2.5.1/lib"
@@ -17,8 +18,9 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
-    boy_sprite.h \
+    character_sprite.h \
     collision.h \
     map_sprite.h \
+    my_text.h \
     obstacle_sprite.h
 
