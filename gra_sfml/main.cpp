@@ -73,13 +73,12 @@ int main()
     character_animation.emplace_back(character_boy);
     character_animation.emplace_back(character_girl);
 
-    character_boy.clear();
-    character_girl.clear();
+    //  character_boy.clear();
+    //  character_girl.clear();
 
 
     my_text score_text("Pacifico",100,1750,50);
 
-    string character="0";
     bool run=false; // czy gra działa
     int animation=0; // która animacja idle/walk/run/jump/dead<
     int animation_move=1; //aktualna animacja biegania
@@ -94,12 +93,12 @@ int main()
     float scale=0.5; // unikanie latajacych obiektów
     int score=0;
     float o_c_time=1;
-    int which_character=1;
+    int which_character=0;
 
-    int nr_frame_idle=16;
-    int nr_frame_move=20;
+    int  nr_frame_idle=15;
+    int nr_frame_move=15;
     int nr_frame_jump=15;
-    int nr_frame_dead=30;
+    int nr_frame_dead=15;
 
 
     while (window.isOpen())
@@ -109,23 +108,43 @@ int main()
         {
             if (event.type == sf::Event::Closed || Keyboard::isKeyPressed(Keyboard::Escape))
                 window.close();
-            if (Keyboard::isKeyPressed(Keyboard::Space))
+
+            if (event.type ==Event::KeyPressed && event.key.code == Keyboard::Tab && !run)
             {
-                if(run==false)
+                if(which_character==0)
                 {
-                    speed=7;
-                    animation=1;
-                    run=true;
-                    animation_move=1;
-                    actual_clock=0;
-                    speed_clock=0;
-                    bird_clock=0;
-                    obstacle_clock=0;
-                    for(int i=0;i<birds.size();i++)
-                    {
-                        birds[i][0].to_move=false;
-                        mushrooms[i].to_move=false;
-                    }
+                    which_character=1;
+                    nr_frame_idle=16;
+                    nr_frame_move=20;
+                    nr_frame_jump=15;
+                    nr_frame_dead=30;
+                }
+                else
+                {
+                    which_character=0;
+                    nr_frame_idle=15;
+                    nr_frame_move=15;
+                    nr_frame_jump=15;
+                    nr_frame_dead=15;
+                }
+                animation=0;
+            }
+
+            if (Keyboard::isKeyPressed(Keyboard::Space)&& !run)
+            {
+                speed=7;
+                animation=1;
+                run=true;
+                animation_move=1;
+                actual_clock=0;
+                speed_clock=0;
+                score=0;
+                bird_clock=0;
+                obstacle_clock=0;
+                for(int i=0;i<birds.size();i++)
+                {
+                    birds[i][0].to_move=false;
+                    mushrooms[i].to_move=false;
                 }
             }
             else if(scale==0.5&&event.type ==Event::KeyPressed && event.key.code == Keyboard::Up && run)
@@ -144,21 +163,6 @@ int main()
         }
 
 
-        //        if(character=="none")
-        //        {
-
-        //            window.clear();
-        //            window.draw(map_sky);
-        //            for( auto &cloud:map_cloud)
-        //            {
-        //                window.draw(cloud);
-        //            }
-        //            window.draw(map_ground);
-        //            window.display();
-
-        //        }
-        //        else
-        //        {
 
         //TIME
         const sf::Time elapsed = clock.restart();
@@ -329,7 +333,7 @@ int main()
         window.display();
 
     }
-    //    }
+
 
     return 0;
 }
