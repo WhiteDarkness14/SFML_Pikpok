@@ -53,3 +53,10 @@ void set_character_dead(vector<character_Sprite> &ch_vec, string file_name, floa
     }
 
 }
+void move_to_positon(vector<character_Sprite> &ch_vec,float PosX, float PosY)
+{
+    for(auto &b:ch_vec)
+    {
+        b.setPosition(PosX,PosY);
+     }
+}

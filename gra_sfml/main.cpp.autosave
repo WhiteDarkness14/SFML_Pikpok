@@ -458,6 +458,7 @@ int main()
                     boss_MODE=false;
                     boss_animation=1;
                     score_boss=0;
+                    boss_life=4;
                 }
             }
         }

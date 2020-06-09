@@ -1,8 +1,9 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 SOURCES += \
+        boss_sprite.cpp \
         character_sprite.cpp \
         collision.cpp \
         main.cpp \
@@ -18,6 +19,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
+    boss_sprite.h \
     character_sprite.h \
     collision.h \
     map_sprite.h \
