@@ -1,15 +1,6 @@
 ﻿#include "map_sprite.h"
 #include "collision.h"
 
-void window_set(RenderWindow &window)
-{
-    window.create(sf::VideoMode(1920, 1080), "Run Pikpok!");//,Style::Fullscreen);
-    window.setActive(true);
-    window.setKeyRepeatEnabled(true);
-    window.setVerticalSyncEnabled(true);
-    srand(time(NULL));
-}
-
 map_Sprite::map_Sprite(string title,int posX, int posY,int originX, int originY)
 {
     string file_name="picture/"+title+".png";

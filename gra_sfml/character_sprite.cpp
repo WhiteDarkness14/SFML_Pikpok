@@ -28,7 +28,7 @@ void set_character_jump(vector<character_Sprite> &ch_vec, string file_name, floa
 {
     set_character_frames(ch_vec, file_name, OriginX, OriginY, PosX, PosY, nr_of_animation);
     int posY=0;
-    for(int i=0;i<ch_vec.size();i++)
+    for(unsigned i=0;i<ch_vec.size();i++)
     {
         if(i<8)
         {

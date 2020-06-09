@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "general.h"
 
-void window_set(RenderWindow &window);
-
 class map_Sprite: public general
 {
 public:

@@ -1,5 +1,4 @@
-﻿#ifndef GENERAL_H
-#define GENERAL_H
+﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
@@ -16,4 +15,4 @@ public:
     void LoadTexture (shared_ptr<sf::Texture> text);
 };
 
-#endif // GENERAL_H
+void window_set(RenderWindow &window);

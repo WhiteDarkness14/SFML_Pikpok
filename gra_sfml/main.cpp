@@ -9,41 +9,27 @@
 #include <memory>
 int main()
 {
-    //    tworzenie okna
+    // Tworzenie okna
     RenderWindow window;
     window_set(window);
 
-    //    tworzenie tła
+    // Tworzenie tła
     map_Sprite map_ground("grass",2045,900,2100,0);
     map_Sprite map_sky("sky",0,0,0,0);
     vector <map_Sprite> map_cloud;
     set_clouds(map_cloud);
 
-    //    tworzenie przeszkód
+    // Tworzenie przeszkód
     vector <obstacle_Sprite> mushrooms;
     vector<vector<obstacle_Sprite>> birds;
     set_obstacle(mushrooms,birds);
 
-    //     tworzenie postaci
+    // Tworzenie postaci
     vector<vector<vector<character_Sprite>>> character_animation;
     set_character(character_animation);
-
     // Tworzenie Bossa
-
     vector<vector<boss_Sprite>> boss;
-
-    vector<boss_Sprite> boss_run;
-    set_boss_frames(boss_run,"boss/run/Run ",8);
-    vector<boss_Sprite> boss_jump;
-    set_boss_jump(boss_jump,"boss/jump/Jump ",12);
-    vector<boss_Sprite> boss_dead;
-    set_boss_dead(boss_dead,"boss/dead/Dead ",8);
-    vector<boss_Sprite> boss_idle;
-    set_boss_frames(boss_idle,"boss/idle/Idle ",10);
-    boss.emplace_back(boss_idle);
-    boss.emplace_back(boss_run);
-    boss.emplace_back(boss_jump);
-    boss.emplace_back(boss_dead);
+    set_boss(boss);
 
     // Tworzenie pocisków
     vector<obstacle_Sprite>flame_dino;
@@ -79,7 +65,6 @@ int main()
     float boss_animation=1;
     float frame_boss=0;
     float boss_life=4;
-
 
     while (window.isOpen())
     {
@@ -125,7 +110,7 @@ int main()
                 score=0;
                 bird_clock=0;
                 obstacle_clock=0;
-                for(int i=0;i<birds.size();i++)
+                for(unsigned i=0;i<birds.size();i++)
                 {
                     birds[i][0].to_move=false;
                     mushrooms[i].to_move=false;
@@ -149,8 +134,6 @@ int main()
             }
 
         }
-
-
 
         //TIME
         const sf::Time elapsed = clock.restart();
@@ -295,11 +278,11 @@ int main()
 
             if(animation!=0)
             {
-                for(int i=0;i<birds.size();i++)
+                for(unsigned i=0;i<birds.size();i++)
                 {
                     if(birds[i][0].to_move)
                     {
-                        for(int j=0;j<birds[i].size();j++)
+                        for(unsigned j=0;j<birds[i].size();j++)
                         {
                             birds[i][j].move(-speed,0);
                         }
@@ -326,13 +309,13 @@ int main()
             if(obstacle_clock>o_c_time)
             {
                 obstacle_clock=0;
-                generate_flame(flame_dino,flame_character,attack);
+                generate_flame(flame_dino);
                 o_c_time=rand()%10+30;
                 o_c_time/=10;
             }
             if(attack)
             {
-                for(int i=0;i<flame_character.size();i++)
+                for(unsigned i=0;i<flame_character.size();i++)
                 {
                     if(flame_character[i].getPosition().x>1920)
                     {
@@ -346,7 +329,7 @@ int main()
                     }
                 }
             }
-            for(int i=0;i<flame_dino.size();i++)
+            for(unsigned i=0;i<flame_dino.size();i++)
             {
                 if(flame_dino[i].to_move)
                 {
@@ -363,7 +346,6 @@ int main()
                     if(Collision::PixelPerfectTest(boss[boss_animation][frame_boss],flame_character[i]))
                     {
                         boss_life--;
-                        cout<<"dostal "<<i<<endl;
                         flame_character[i].to_move=false;
                     }
                 }
@@ -373,7 +355,6 @@ int main()
                 frame_boss=0;
                 boss_life--;
                 boss_animation=3; //dead
-                cout<<"zginal"<<endl;
             }
             if(boss_animation==3 && frame_boss==7) //zjazd ze sceny bossa
             {
@@ -401,7 +382,7 @@ int main()
         window.draw(character_animation[which_character][animation][frame]);
         if(!boss_MODE)
         {
-            for(int i=0;i<birds.size();i++)
+            for(unsigned i=0;i<birds.size();i++)
             {
                 if(birds[i][0].to_move)
                 {
@@ -417,7 +398,7 @@ int main()
         if(boss_MODE)
         {
             window.draw(boss[boss_animation][frame_boss]);
-            for(int i=0;i<flame_dino.size();i++)
+            for(unsigned i=0;i<flame_dino.size();i++)
             {
                 if(flame_dino[i].to_move)
                 {
@@ -425,7 +406,6 @@ int main()
                 }
                 if(flame_character[i].to_move)
                 {
-                    cout<<"PORUSZA SIE "<<i<<endl;
                     window.draw(flame_character[i]);
                 }
 
@@ -433,9 +413,6 @@ int main()
         }
         window.draw(map_ground);
         window.draw(score_text);
-
-
-
         window.display();
 
     }

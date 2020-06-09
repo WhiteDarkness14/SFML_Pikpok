@@ -41,7 +41,7 @@ void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &fl
 }
 void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sprite>&mushrooms)
 {
-    for(int i=0;i<birds.size();i++)
+    for(unsigned i=0;i<birds.size();i++)
     {
         if(birds[i][0].getPosition().x<0)
         {
@@ -56,12 +56,12 @@ void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sp
     int randomize=rand()%10+1;
     if(randomize>5)
     {
-        for(int i=0;i<birds.size();i++)
+        for(unsigned i=0;i<birds.size();i++)
         {
             if(birds[i][0].to_move==false)
             {
                 birds[i][0].to_move=true;
-                for(int j=0;j<birds[i].size();j++)
+                for(unsigned j=0;j<birds[i].size();j++)
                 {
                     birds[i][j].setPosition(2000,630);
                 }
@@ -71,7 +71,7 @@ void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sp
     }
     else
     {
-        for(int i=0;i<mushrooms.size();i++)
+        for(unsigned i=0;i<mushrooms.size();i++)
         {
             if(mushrooms[i].to_move==false)
             {
@@ -84,9 +84,9 @@ void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sp
     }
 }
 
-void generate_flame(vector<obstacle_Sprite>&flame_dino,vector<obstacle_Sprite>&flame_character,bool attack)
+void generate_flame(vector<obstacle_Sprite>&flame_dino)
 {
-    for(int i=0;i<flame_dino.size();i++)
+    for(unsigned i=0;i<flame_dino.size();i++)
     {
         if(flame_dino[i].getPosition().x<-100)
         {
@@ -94,7 +94,7 @@ void generate_flame(vector<obstacle_Sprite>&flame_dino,vector<obstacle_Sprite>&f
         }
 
     }
-    for(int i=0;i<flame_dino.size();i++)
+    for(unsigned i=0;i<flame_dino.size();i++)
     {
         if(flame_dino[i].to_move==false)
         {
