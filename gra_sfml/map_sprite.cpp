@@ -5,7 +5,7 @@ void window_set(RenderWindow &window)
 {
     window.create(sf::VideoMode(1920, 1080), "Run Pikpok!");//,Style::Fullscreen);
     window.setActive(true);
-    window.setKeyRepeatEnabled(false);
+    window.setKeyRepeatEnabled(true);
     window.setVerticalSyncEnabled(true);
     srand(time(NULL));
 }
@@ -15,8 +15,8 @@ map_Sprite::map_Sprite(string title,int posX, int posY,int originX, int originY)
     string file_name="picture/"+title+".png";
     Texture text;
     Collision::CreateTextureAndBitmask(text,file_name);
-    texture.emplace_back(text);
-    setTexture(texture[0]);
+    shared_ptr<Texture> object_ptr = make_shared<Texture>(text);
+    LoadTexture(object_ptr);
     setPosition(posX,posY);
     setOrigin(originX,originY);
 }

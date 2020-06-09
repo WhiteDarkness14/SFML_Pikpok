@@ -1,32 +1,19 @@
-﻿#ifndef OBSTACLE_SPRITE_H
-#define OBSTACLE_SPRITE_H
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include "collision.h"
-#include "character_sprite.h"
-#include <memory>
-using namespace std;
-using namespace sf;
+﻿#pragma once
+#include "general.h"
 
 
-class obstacle_Sprite: public Sprite
+class obstacle_Sprite: public general
 {
-private:
-    vector<Texture>texture_obstacle;
-    shared_ptr<sf::Texture> texture;
-
 public:
     bool to_move=false;
     obstacle_Sprite();
-    obstacle_Sprite(string title, float scale);
-    void LoadTexture (shared_ptr<sf::Texture> text);
+    //obstacle_Sprite(string title, float scale);
+    obstacle_Sprite(string name, const float scale);
 
 };
-void set_mushrooms(vector<obstacle_Sprite> &mushrooms);
-void set_bird(vector<obstacle_Sprite> &bird);
+void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &flame_character);
 void generate_obstacle(vector<vector<obstacle_Sprite> > &birds, vector<obstacle_Sprite> &mushrooms);
-void set_flame(vector<obstacle_Sprite>&flame,string str);
 void generate_flame(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &flame_character, bool attack);
 void make_flame(obstacle_Sprite & flame, string name);
-#endif // OBSTACLE_SPRITE_H
+void set_obstacle(vector<obstacle_Sprite>&mushrooms, vector<vector<obstacle_Sprite> > &birds);
+

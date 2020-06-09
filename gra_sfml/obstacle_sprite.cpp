@@ -1,38 +1,42 @@
 ﻿#include "obstacle_sprite.h"
-#include "collision.h"
-#include <iostream>
 obstacle_Sprite::obstacle_Sprite(){}
-obstacle_Sprite::obstacle_Sprite(string title, float scale)
+obstacle_Sprite::obstacle_Sprite(string name, const float scale)
 {
-    string file_name="picture/"+title+".png";
+    string file_name="picture/"+name+".png";
     Texture text;
     Collision::CreateTextureAndBitmask(text,file_name);
-    texture_obstacle.emplace_back(text);
-    setTexture(texture_obstacle[0]);
+    shared_ptr<Texture> object_ptr = make_shared<Texture>(text);
+    LoadTexture(object_ptr);
     setScale(scale,scale);
 }
-void set_mushrooms(vector<obstacle_Sprite>&mushrooms)
+
+void set_obstacle(vector<obstacle_Sprite> &mushrooms,vector<vector<obstacle_Sprite>> &birds)
 {
     for(int i=0;i<3;i++)
     {
         mushrooms.emplace_back("mushroom",0.25);
+        vector<obstacle_Sprite> bird;
+        string file_name="bird/brid";
+        for(int i=1;i<=10;i++)
+        {
+            string f_name=file_name;
+            f_name+=to_string(i);
+            bird.emplace_back(f_name,0.5);
+        }
+        birds.emplace_back(bird);
     }
 }
-void set_flame(vector<obstacle_Sprite>&flame,string str)
+void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &flame_character)
 {
     for(int i=0;i<3;i++)
     {
-        flame.emplace_back(str,1);
-    }
-}
-void set_bird(vector<obstacle_Sprite>&bird)
-{
-    string file_name="bird/brid";
-    for(int i=1;i<=10;i++)
-    {
-        string f_name=file_name;
-        f_name+=to_string(i);
-        bird.emplace_back(f_name,0.5);
+        obstacle_Sprite flame;
+        make_flame(flame,"picture/flame.png");
+        obstacle_Sprite flame2;
+        make_flame(flame2,"picture/flame_character.png");
+        flame.setPosition(rand()%1920,rand()%1080);
+        flame_dino.emplace_back(flame);
+        flame_character.emplace_back(flame2);
     }
 }
 void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sprite>&mushrooms)
@@ -95,17 +99,12 @@ void generate_flame(vector<obstacle_Sprite>&flame_dino,vector<obstacle_Sprite>&f
         if(flame_dino[i].to_move==false)
         {
             flame_dino[i].to_move=true;
-            cout<<"LECI"<<endl;
             flame_dino[i].setPosition(1600,400);
             break;
         }
     }
 }
-void obstacle_Sprite::LoadTexture(std::shared_ptr<sf::Texture> text)
-{
-    texture = text;
-    setTexture(*texture);
-}
+
 void make_flame(obstacle_Sprite & flame, string name)
 {
     Texture text;

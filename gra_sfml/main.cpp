@@ -4,6 +4,7 @@
 #include "my_text.h"
 #include "collision.h"
 #include "boss_sprite.h"
+#include "general.h"
 #include <iostream>
 #include <memory>
 int main()
@@ -21,62 +22,11 @@ int main()
     //    tworzenie przeszkód
     vector <obstacle_Sprite> mushrooms;
     vector<vector<obstacle_Sprite>> birds;
-    set_mushrooms(mushrooms);
-    vector<obstacle_Sprite> bird1;
-    vector<obstacle_Sprite> bird2;
-    vector<obstacle_Sprite> bird3;
-    set_bird(bird1);
-    set_bird(bird2);
-    set_bird(bird3);
-    birds.emplace_back(bird1);
-    birds.emplace_back(bird2);
-    birds.emplace_back(bird3);
+    set_obstacle(mushrooms,birds);
 
     //     tworzenie postaci
-
-    vector <character_Sprite> boy_idle;
-    set_character_frames(boy_idle,"boy/b_idle/Idle ",307,500,300,924,15);
-    vector <character_Sprite> boy_walk;
-    set_character_frames(boy_walk,"boy/b_walk/Walk ",307,500,300,924,15);
-    vector <character_Sprite> boy_run;
-    set_character_frames(boy_run,"boy/b_run/Run ",307,500,300,924,15);
-    vector <character_Sprite> boy_jump;
-    set_character_jump(boy_jump,"boy/b_jump/Jump ",307,500,300,924,15);
-    vector <character_Sprite> boy_dead;
-    set_character_dead(boy_dead,"boy/b_dead/Dead ",307,500,300,924,15);
-
-    vector <character_Sprite> girl_idle;
-    set_character_frames(girl_idle,"girl/g_idle/Idle ",208,445,300,921,16);
-    vector <character_Sprite> girl_walk;
-    set_character_frames(girl_walk,"girl/g_walk/Walk ",208,445,300,921,20);
-    vector <character_Sprite> girl_run;
-    set_character_frames(girl_run,"girl/g_run/Run ",208,445,300,921,20);
-    vector <character_Sprite> girl_jump;
-    set_character_jump(girl_jump,"girl/g_jump/Jump ",208,445,300,921,15);
-    vector <character_Sprite> girl_dead;
-    set_character_dead(girl_dead,"girl/g_dead/Dead ",208,445,300,921,30);
-
-    vector <vector <character_Sprite>> character_boy;
-    vector <vector <character_Sprite>> character_girl;
-    vector <vector<vector <character_Sprite>>> character_animation;
-
-    character_boy.emplace_back(boy_idle);
-    character_boy.emplace_back(boy_walk);
-    character_boy.emplace_back(boy_run);
-    character_boy.emplace_back(boy_jump);
-    character_boy.emplace_back(boy_dead);
-
-    character_girl.emplace_back(girl_idle);
-    character_girl.emplace_back(girl_walk);
-    character_girl.emplace_back(girl_run);
-    character_girl.emplace_back(girl_jump);
-    character_girl.emplace_back(girl_dead);
-
-    character_animation.emplace_back(character_boy);
-    character_animation.emplace_back(character_girl);
-
-    character_boy.clear();
-    character_girl.clear();
+    vector<vector<vector<character_Sprite>>> character_animation;
+    set_character(character_animation);
 
     // Tworzenie Bossa
 
@@ -96,31 +46,9 @@ int main()
     boss.emplace_back(boss_dead);
 
     // Tworzenie pocisków
-    //    vector<obstacle_Sprite>flame_dino;
-    //    set_flame(flame_dino,"flame");
-    //    vector<obstacle_Sprite>flame_character;
-    //    set_flame(flame_character,"flame_character");
-
-
-    //    Texture flame_dino_text;
-    //    Collision::CreateTextureAndBitmask(flame_dino_text,"picture/flame.png");
-    //    shared_ptr<Texture> flame_dino_ptr = make_shared<Texture>(flame_dino_text);
-    //    obstacle_Sprite flame;
-    //    flame.LoadTexture(flame_dino_ptr);
-    //    flame.setPosition(1000,800);
-
     vector<obstacle_Sprite>flame_dino;
     vector<obstacle_Sprite> flame_character;
-    for(int i=0;i<3;i++)
-    {
-        obstacle_Sprite flame;
-        make_flame(flame,"picture/flame.png");
-        obstacle_Sprite flame2;
-        make_flame(flame2,"picture/flame_character.png");
-        flame.setPosition(rand()%1920,rand()%1080);
-        flame_dino.emplace_back(flame);
-        flame_character.emplace_back(flame2);
-    }
+    set_flames(flame_dino,flame_character);
 
 
 
@@ -142,7 +70,6 @@ int main()
     int score_boss=0;
     float o_c_time=1;
     int which_character=0;
-    bool control_attack=false;
     int  nr_frame_idle=15;
     int nr_frame_move=15;
     int nr_frame_jump=15;
@@ -196,7 +123,6 @@ int main()
                 actual_clock=0;
                 speed_clock=0;
                 score=0;
-                score_boss=90;
                 bird_clock=0;
                 obstacle_clock=0;
                 for(int i=0;i<birds.size();i++)
@@ -458,6 +384,7 @@ int main()
                     boss_MODE=false;
                     boss_animation=1;
                     score_boss=0;
+                    boss_life=4;
                 }
             }
         }
