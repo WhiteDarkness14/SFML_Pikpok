@@ -39,7 +39,7 @@ void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &fl
         flame_character.emplace_back(flame2);
     }
 }
-void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sprite>&mushrooms)
+void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sprite>&mushrooms,vector<float>&time_jump_distance)
 {
     for(unsigned i=0;i<birds.size();i++)
     {
@@ -50,11 +50,12 @@ void generate_obstacle(vector<vector<obstacle_Sprite>>&birds, vector<obstacle_Sp
         if(mushrooms[i].getPosition().x<0)
         {
             mushrooms[i].to_move=false;
+            time_jump_distance[i]=0;
         }
     }
 
     int randomize=rand()%10+1;
-    if(randomize>5)
+    if(randomize>7)
     {
         for(unsigned i=0;i<birds.size();i++)
         {
@@ -114,3 +115,31 @@ void make_flame(obstacle_Sprite & flame, string name)
     flame.setPosition(1000,700);
 }
 
+float set_time_jump(const float time_jump)
+{
+    //float t = 0.0;
+    if(time_jump>300)
+    {
+        return (time_jump-40);
+    }
+    else if(time_jump>250)
+    {
+        return (time_jump-30);
+    }
+    else if(time_jump>200)
+    {
+        return (time_jump-20);
+    }
+    else if(time_jump>150)
+    {
+        return time_jump;
+    }
+    else if(time_jump>100)
+    {
+        return (time_jump+30);
+    }
+    else
+    {
+        return (time_jump+50);
+    }
+}

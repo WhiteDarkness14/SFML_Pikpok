@@ -27,20 +27,9 @@ void set_character_frames(vector<character_Sprite> &ch_vec, string file_name, fl
 void set_character_jump(vector<character_Sprite> &ch_vec, string file_name, float OriginX, float OriginY, float PosX, float PosY, float nr_of_animation)
 {
     set_character_frames(ch_vec, file_name, OriginX, OriginY, PosX, PosY, nr_of_animation);
-    int posY=0;
-    for(unsigned i=0;i<ch_vec.size();i++)
-    {
-        if(i<8)
-        {
-            ch_vec[i].move(0,posY);
-            posY-=22;
-        }
-        else
-        {
-            ch_vec[i].move(0,posY);
-            posY+=22;
-        }
-    }
+    ch_vec[0].move(0,-100);
+    ch_vec[1].move(0,-200);
+    ch_vec[2].move(0,-100);
 }
 void set_character_dead(vector<character_Sprite> &ch_vec, string file_name, float OriginX, float OriginY, float PosX, float PosY, float nr_of_animation)
 {
@@ -62,7 +51,7 @@ void set_character(vector <vector<vector <character_Sprite>>> &character_animati
     vector <character_Sprite> boy_run;
     set_character_frames(boy_run,"boy/b_run/Run ",307,500,300,924,15);
     vector <character_Sprite> boy_jump;
-    set_character_jump(boy_jump,"boy/b_jump/Jump ",307,500,300,924,15);
+    set_character_jump(boy_jump,"boy/b_jump/Jump ",307,500,300,924,3);
     vector <character_Sprite> boy_dead;
     set_character_dead(boy_dead,"boy/b_dead/Dead ",307,500,300,924,15);
 
@@ -73,7 +62,7 @@ void set_character(vector <vector<vector <character_Sprite>>> &character_animati
     vector <character_Sprite> girl_run;
     set_character_frames(girl_run,"girl/g_run/Run ",208,445,300,921,20);
     vector <character_Sprite> girl_jump;
-    set_character_jump(girl_jump,"girl/g_jump/Jump ",208,445,300,921,15);
+    set_character_jump(girl_jump,"girl/g_jump/Jump ",208,445,300,921,3);
     vector <character_Sprite> girl_dead;
     set_character_dead(girl_dead,"girl/g_dead/Dead ",208,445,300,921,30);
 

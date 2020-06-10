@@ -7,11 +7,14 @@
 #include "general.h"
 #include <iostream>
 #include <memory>
+#include <cstdlib>
 int main()
 {
     // Tworzenie okna
     RenderWindow window;
     window_set(window);
+
+//    window.setFramerateLimit(3);
 
     // Tworzenie tła
     map_Sprite map_ground("grass",2045,900,2100,0);
@@ -27,6 +30,7 @@ int main()
     // Tworzenie postaci
     vector<vector<vector<character_Sprite>>> character_animation;
     set_character(character_animation);
+
     // Tworzenie Bossa
     vector<vector<boss_Sprite>> boss;
     set_boss(boss);
@@ -36,7 +40,7 @@ int main()
     vector<obstacle_Sprite> flame_character;
     set_flames(flame_dino,flame_character);
 
-
+    srand(time(NULL));
 
     my_text score_text("Pacifico",100,1750,50);
 
@@ -45,7 +49,7 @@ int main()
     int animation_move=1; //aktualna animacja biegania
     int actual_animation=0; // aktualna animacja
     Clock clock;
-    float actual_clock=0, speed_clock=1, bird_clock=0, obstacle_clock=0, total_time=0; // liczniki czasów
+    float actual_clock=0, speed_clock=1, bird_clock=0, obstacle_clock=0, total_time=0, jump_clock=0; // liczniki czasów
     float speed=0; // predkosc gry
     float frame=0; // klatka animacji Pikpoka
     float frame_bird=0; // klatka animacji Brida
@@ -58,13 +62,15 @@ int main()
     int which_character=0;
     int  nr_frame_idle=15;
     int nr_frame_move=15;
-    int nr_frame_jump=15;
     int nr_frame_dead=15;
     bool boss_MODE=false;
     bool attack=false;
+    bool first_jump=true;
     float boss_animation=1;
     float frame_boss=0;
     float boss_life=4;
+    vector <float> time_jump_distance(3,0);
+    float time_jump=300;
 
     while (window.isOpen())
     {
@@ -82,7 +88,6 @@ int main()
                     which_character=1;
                     nr_frame_idle=16;
                     nr_frame_move=20;
-                    nr_frame_jump=15;
                     nr_frame_dead=30;
                 }
                 else
@@ -90,7 +95,6 @@ int main()
                     which_character=0;
                     nr_frame_idle=15;
                     nr_frame_move=15;
-                    nr_frame_jump=15;
                     nr_frame_dead=15;
                 }
                 animation=0;
@@ -99,6 +103,7 @@ int main()
 
             if (Keyboard::isKeyPressed(Keyboard::Space)&& !run)
             {
+                time_jump=300;
                 boss_MODE=false;
                 score_boss=0;
                 speed=7;
@@ -220,12 +225,28 @@ int main()
         }
         else if(actual_clock>=refresh_animation&& animation==3) // jump animation
         {
-            actual_clock=0;
-            frame++;
-            if(frame==nr_frame_jump)
+            if(first_jump)
             {
-                frame=0;
+                actual_clock=0;
+                first_jump=false;
+            }
+            else if(frame==2)
+            {
                 animation=animation_move;
+                first_jump=true;
+                actual_clock=0;
+            }
+            else if(set_time_jump(jump_clock)>jump_clock)
+            {
+                jump_clock+=elapsed.asMilliseconds();
+                frame=1;
+                actual_clock=0;
+            }
+            else
+            {
+                frame=2;
+                jump_clock=0;
+                actual_clock=0;
             }
         }
         else if(animation==4) //dead animation
@@ -271,12 +292,12 @@ int main()
             if(obstacle_clock>o_c_time&&run)
             {
                 obstacle_clock=0;
-                generate_obstacle(birds,mushrooms);
+                generate_obstacle(birds,mushrooms,time_jump_distance);
                 o_c_time=rand()%10+9;
                 o_c_time/=10;
             }
 
-            if(animation!=0)
+            if(animation!=0 && animation!=4)
             {
                 for(unsigned i=0;i<birds.size();i++)
                 {
@@ -294,6 +315,19 @@ int main()
                     if(mushrooms[i].to_move)
                     {
                         mushrooms[i].move(-speed,0);
+                        if(mushrooms[i].getPosition().x<650 && mushrooms[i].getPosition().x>=500)
+                        {
+                            time_jump_distance[i]+=elapsed.asMilliseconds();
+                            //                            cout<<i<<"   "<<time_jump_distance[i]<<endl;
+                        }
+                        else if(mushrooms[i].getPosition().x<=500)
+                        {
+                            if(time_jump>time_jump_distance[i])
+                            {
+                                time_jump=time_jump_distance[i];
+                                cout<<speed<<"  "<<time_jump<<endl;
+                            }
+                        }
                         if(Collision::PixelPerfectTest(character_animation[which_character][animation][frame],mushrooms[i]))
                         {
                             animation=4;
@@ -303,7 +337,7 @@ int main()
             }
         }
 
-        if(!(score_boss%100) && score_boss>10) // boss fight
+        if(!(score_boss%1000) && score_boss>10) // boss fight
         {
             boss_MODE=true;
             if(obstacle_clock>o_c_time)
