@@ -14,7 +14,7 @@ int main()
     RenderWindow window;
     window_set(window);
 
-//    window.setFramerateLimit(3);
+    //    window.setFramerateLimit(3);
 
     // Tworzenie tła
     map_Sprite map_ground("grass",2045,900,2100,0);
@@ -58,7 +58,6 @@ int main()
     float scale=0.5; // unikanie latajacych obiektów
     int score=0;
     int score_boss=0;
-    float o_c_time=1;
     int which_character=0;
     int  nr_frame_idle=15;
     int nr_frame_move=15;
@@ -120,6 +119,10 @@ int main()
                     birds[i][0].to_move=false;
                     mushrooms[i].to_move=false;
                 }
+                for(unsigned i=0;i<flame_dino.size();i++)
+                {
+                    flame_dino[i].to_move=false;
+                }
             }
             if(scale==0.5&&event.type ==Event::KeyPressed && event.key.code == Keyboard::Up && run)
             {
@@ -133,13 +136,12 @@ int main()
             {
                 scale=0.5;
             }
-            if(event.type == Event::KeyReleased && event.key.code == Keyboard::A)
+            if(event.type == Event::KeyReleased && event.key.code == Keyboard::A && scale==0.5)
             {
                 attack=true;
             }
 
         }
-
         //TIME
         const sf::Time elapsed = clock.restart();
         actual_clock+=elapsed.asMilliseconds();
@@ -289,12 +291,11 @@ int main()
 
         if(!boss_MODE) //generate obstacle
         {
-            if(obstacle_clock>o_c_time&&run)
+            if(obstacle_clock>25/speed&&run)
             {
                 obstacle_clock=0;
                 generate_obstacle(birds,mushrooms,time_jump_distance);
-                o_c_time=rand()%10+9;
-                o_c_time/=10;
+
             }
 
             if(animation!=0 && animation!=4)
@@ -303,9 +304,12 @@ int main()
                 {
                     if(birds[i][0].to_move)
                     {
+                        if(birds[i][0].getPosition().y>660) birds[i][0].updown=-1;
+                        if(birds[i][0].getPosition().y<600) birds[i][0].updown=1;
+
                         for(unsigned j=0;j<birds[i].size();j++)
                         {
-                            birds[i][j].move(-speed,0);
+                            birds[i][j].move(-speed,birds[i][0].updown);
                         }
                         if(Collision::PixelPerfectTest(character_animation[which_character][animation][frame],birds[i][frame_bird]))
                         {
@@ -318,14 +322,12 @@ int main()
                         if(mushrooms[i].getPosition().x<650 && mushrooms[i].getPosition().x>=500)
                         {
                             time_jump_distance[i]+=elapsed.asMilliseconds();
-                            //                            cout<<i<<"   "<<time_jump_distance[i]<<endl;
                         }
                         else if(mushrooms[i].getPosition().x<=500)
                         {
                             if(time_jump>time_jump_distance[i])
                             {
                                 time_jump=time_jump_distance[i];
-                                cout<<speed<<"  "<<time_jump<<endl;
                             }
                         }
                         if(Collision::PixelPerfectTest(character_animation[which_character][animation][frame],mushrooms[i]))
@@ -337,15 +339,14 @@ int main()
             }
         }
 
-        if(!(score_boss%1000) && score_boss>10) // boss fight
+        if(!(score_boss%100) && score_boss>10) // boss fight
         {
             boss_MODE=true;
-            if(obstacle_clock>o_c_time)
+            if(obstacle_clock>50/speed)
             {
                 obstacle_clock=0;
                 generate_flame(flame_dino);
-                o_c_time=rand()%10+30;
-                o_c_time/=10;
+
             }
             if(attack)
             {
@@ -358,7 +359,7 @@ int main()
                     if(flame_character[i].to_move==false)
                     {
                         flame_character[i].to_move=true;
-                        flame_character[i].setPosition(-100,600);
+                        flame_character[i].setPosition(200,600);
                         break;
                     }
                 }
@@ -368,6 +369,7 @@ int main()
                 if(flame_dino[i].to_move)
                 {
                     flame_dino[i].move(-speed,0);
+                    flame_dino[i].rotate(3);
                     if(Collision::PixelPerfectTest(character_animation[which_character][animation][frame],flame_dino[i]))
                     {
                         animation=4;
@@ -377,10 +379,16 @@ int main()
                 if(flame_character[i].to_move)
                 {
                     flame_character[i].move(speed,0);
+                    flame_character[i].rotate(rand()%3+3);
                     if(Collision::PixelPerfectTest(boss[boss_animation][frame_boss],flame_character[i]))
                     {
                         boss_life--;
                         flame_character[i].to_move=false;
+                        for(unsigned i=0;i<birds.size();i++)
+                        {
+                            birds[i][0].to_move=false;
+                            mushrooms[i].to_move=false;
+                        }
                     }
                 }
             }
@@ -400,6 +408,10 @@ int main()
                     boss_animation=1;
                     score_boss=0;
                     boss_life=4;
+                    for(unsigned i=0;i<flame_dino.size();i++)
+                    {
+                        flame_dino[i].to_move=false;
+                    }
                 }
             }
         }
@@ -442,7 +454,6 @@ int main()
                 {
                     window.draw(flame_character[i]);
                 }
-
             }
         }
         window.draw(map_ground);

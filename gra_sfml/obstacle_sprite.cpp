@@ -31,10 +31,11 @@ void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &fl
     for(int i=0;i<3;i++)
     {
         obstacle_Sprite flame;
-        make_flame(flame,"picture/flame.png");
+        make_flame(flame,"picture/bone.png");
+        flame.setScale(0.3,0.3);
         obstacle_Sprite flame2;
-        make_flame(flame2,"picture/flame_character.png");
-        flame.setPosition(rand()%1920,rand()%1080);
+        make_flame(flame2,"picture/bomb.png");
+        flame2.setScale(0.4,0.4);
         flame_dino.emplace_back(flame);
         flame_character.emplace_back(flame2);
     }
@@ -100,7 +101,7 @@ void generate_flame(vector<obstacle_Sprite>&flame_dino)
         if(flame_dino[i].to_move==false)
         {
             flame_dino[i].to_move=true;
-            flame_dino[i].setPosition(1600,400);
+            flame_dino[i].setPosition(1400,600);
             break;
         }
     }
@@ -117,7 +118,6 @@ void make_flame(obstacle_Sprite & flame, string name)
 
 float set_time_jump(const float time_jump)
 {
-    //float t = 0.0;
     if(time_jump>300)
     {
         return (time_jump-40);
@@ -140,6 +140,6 @@ float set_time_jump(const float time_jump)
     }
     else
     {
-        return (time_jump+50);
+        return (time_jump+40);
     }
 }

@@ -9,6 +9,7 @@ public:
     obstacle_Sprite();
     //obstacle_Sprite(string title, float scale);
     obstacle_Sprite(string name, const float scale);
+    float updown=1;
 
 };
 void set_flames(vector<obstacle_Sprite> &flame_dino, vector<obstacle_Sprite> &flame_character);
