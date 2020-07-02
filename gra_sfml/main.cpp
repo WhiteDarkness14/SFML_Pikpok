@@ -1,20 +1,10 @@
-﻿#include "map_sprite.h"
-#include "character_sprite.h"
-#include "obstacle_sprite.h"
-#include "my_text.h"
-#include "collision.h"
-#include "boss_sprite.h"
-#include "general.h"
-#include <iostream>
-#include <memory>
-#include <cstdlib>
+﻿
+#include <headers.h>
 int main()
 {
     // Tworzenie okna
     RenderWindow window;
     window_set(window);
-
-    //    window.setFramerateLimit(3);
 
     // Tworzenie tła
     map_Sprite map_ground("grass",2045,900,2100,0);
@@ -40,9 +30,21 @@ int main()
     vector<obstacle_Sprite> flame_character;
     set_flames(flame_dino,flame_character);
 
+    // Dźwięk
+    my_sound jump_sound("sfx/jump.wav");
+    my_sound dead_sound("sfx/dead.wav");
+    my_sound bomb_sound("sfx/bomb.wav");
+    my_sound dodge_sound("sfx/dodge.flac");
+    my_sound dinosaur_sound("sfx/dinosaur/wav");
+
     srand(time(NULL));
 
     my_text score_text("Pacifico",100,1750,50);
+    my_text info_text("Pacifico",75,400,50);
+    info_text.setString("Space - start \n Tab - character change \n Up - jump \n Down - dodge \n Shift - attack");
+    my_text final_text("Pacifico",75,700,200);
+    final_text.setString("  GAME OVER\n      SCORE: \n \n    Space - restart \nTab - character change");
+    my_text final_score("Pacifico",250,850,350);
 
     bool run=false; // czy gra działa
     int animation=0; // która animacja idle/walk/run/jump/dead<
@@ -70,7 +72,8 @@ int main()
     float boss_life=4;
     vector <float> time_jump_distance(3,0);
     float time_jump=300;
-
+    bool sound_dino_bool=true;
+    bool sound_dodge_bool=true;
     while (window.isOpen())
     {
         sf::Event event;
@@ -131,12 +134,19 @@ int main()
             if (event.type ==Event::KeyPressed && event.key.code == Keyboard::Down && run)
             {
                 scale=0.25;
+                if(sound_dodge_bool)
+                {
+                    sound_dodge_bool=false;
+                    dodge_sound.play();
+                }
             }
             if (event.type == Event::KeyReleased && event.key.code == Keyboard::Down && run)
             {
                 scale=0.5;
+                sound_dodge_bool=true;
+                dodge_sound.play();
             }
-            if(event.type == Event::KeyReleased && event.key.code == Keyboard::A && scale==0.5)
+            if(event.type == Event::KeyReleased && (event.key.code == Keyboard::LShift || event.key.code == Keyboard::RShift ) && scale==0.5)
             {
                 attack=true;
             }
@@ -147,9 +157,9 @@ int main()
         actual_clock+=elapsed.asMilliseconds();
         speed_clock+=elapsed.asSeconds();
         bird_clock+=elapsed.asSeconds();
-        obstacle_clock+=elapsed.asSeconds();
         total_time+=elapsed.asMilliseconds();
 
+        obstacle_clock+=elapsed.asSeconds();
         //LOGIC
         if(total_time>=100&&run) // counter
         {
@@ -161,6 +171,7 @@ int main()
             }
         }
         score_text.setString(to_string(score));
+        final_score.setString(to_string(score));
         if(speed_clock>0.5&&animation!=4&&run)  // speed+
         {
             speed_clock=0;
@@ -231,6 +242,7 @@ int main()
             {
                 actual_clock=0;
                 first_jump=false;
+                jump_sound.play();
             }
             else if(frame==2)
             {
@@ -258,6 +270,7 @@ int main()
                 if(frame==0)
                 {
                     break_speed=speed/(nr_frame_dead-1);
+                    dead_sound.play();
                 }
                 if(frame<nr_frame_dead-1)
                 {
@@ -346,7 +359,11 @@ int main()
             {
                 obstacle_clock=0;
                 generate_flame(flame_dino);
-
+            }
+            if(sound_dino_bool)
+            {
+                dinosaur_sound.play();
+                sound_dino_bool=false;
             }
             if(attack)
             {
@@ -384,6 +401,7 @@ int main()
                     {
                         boss_life--;
                         flame_character[i].to_move=false;
+                        bomb_sound.play();
                         for(unsigned i=0;i<birds.size();i++)
                         {
                             birds[i][0].to_move=false;
@@ -412,10 +430,10 @@ int main()
                     {
                         flame_dino[i].to_move=false;
                     }
+                    sound_dino_bool=true;
                 }
             }
         }
-
 
         //DRAW
 
@@ -424,6 +442,19 @@ int main()
         for( auto &cloud:map_cloud)
         {
             window.draw(cloud);
+        }
+        if(actual_animation==0)
+        {
+            window.draw(info_text);
+        }
+        if(actual_animation==4 && frame==(nr_frame_dead-1))
+        {
+            window.draw(final_text);
+            window.draw(final_score);
+        }
+        else
+        {
+            window.draw(score_text);
         }
         window.draw(character_animation[which_character][animation][frame]);
         if(!boss_MODE)
@@ -457,7 +488,6 @@ int main()
             }
         }
         window.draw(map_ground);
-        window.draw(score_text);
         window.display();
 
     }

@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "general.h"
-
+#include "headers.h"
 
 class obstacle_Sprite: public general
 {

@@ -57,6 +57,7 @@ SOURCES       = ..\gra_sfml\boss_sprite.cpp \
 		..\gra_sfml\general.cpp \
 		..\gra_sfml\main.cpp \
 		..\gra_sfml\map_sprite.cpp \
+		..\gra_sfml\my_sound.cpp \
 		..\gra_sfml\my_text.cpp \
 		..\gra_sfml\obstacle_sprite.cpp 
 OBJECTS       = boss_sprite.o \
@@ -65,6 +66,7 @@ OBJECTS       = boss_sprite.o \
 		general.o \
 		main.o \
 		map_sprite.o \
+		my_sound.o \
 		my_text.o \
 		obstacle_sprite.o
 
@@ -72,7 +74,9 @@ DIST          =  boss_sprite.h \
 		character_sprite.h \
 		collision.h \
 		general.h \
+		headers.h \
 		map_sprite.h \
+		my_sound.h \
 		my_text.h \
 		obstacle_sprite.h ..\gra_sfml\boss_sprite.cpp \
 		..\gra_sfml\character_sprite.cpp \
@@ -80,6 +84,7 @@ DIST          =  boss_sprite.h \
 		..\gra_sfml\general.cpp \
 		..\gra_sfml\main.cpp \
 		..\gra_sfml\map_sprite.cpp \
+		..\gra_sfml\my_sound.cpp \
 		..\gra_sfml\my_text.cpp \
 		..\gra_sfml\obstacle_sprite.cpp
 QMAKE_TARGET  = gra_sfml
@@ -445,7 +450,7 @@ dist:
 	$(ZIP) gra_sfml.zip $(SOURCES) $(DIST) ..\gra_sfml\gra_sfml.pro D:\Qt\5.14.1\mingw73_64\mkspecs\features\spec_pre.prf D:\Qt\5.14.1\mingw73_64\mkspecs\qdevice.pri D:\Qt\5.14.1\mingw73_64\mkspecs\features\device_config.prf D:\Qt\5.14.1\mingw73_64\mkspecs\common\sanitize.conf D:\Qt\5.14.1\mingw73_64\mkspecs\common\gcc-base.conf D:\Qt\5.14.1\mingw73_64\mkspecs\common\g++-base.conf D:\Qt\5.14.1\mingw73_64\mkspecs\common\angle.conf D:\Qt\5.14.1\mingw73_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\Qt\5.14.1\mingw73_64\mkspecs\common\windows-vulkan.conf D:\Qt\5.14.1\mingw73_64\mkspecs\common\g++-win32.conf D:\Qt\5.14.1\mingw73_64\mkspecs\common\windows-desktop.conf D:\Qt\5.14.1\mingw73_64\mkspecs\qconfig.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3drender.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axbase.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axserver.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_core.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_core_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_dbus.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_designer.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_gui.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_help.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_help_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_location.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_location_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_network.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_network_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_nfc.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_opengl.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_positioning.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qml.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmlmodels.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmlmodels_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmlworkerscript.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quick.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_repparser.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_scxml.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_sensors.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_serialport.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_sql.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_svg.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_testlib.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_uitools.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_websockets.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_widgets.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_winextras.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_xml.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt\5.14.1\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt\5.14.1\mingw73_64\mkspecs\features\qt_functions.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\qt_config.prf D:\Qt\5.14.1\mingw73_64\mkspecs\win32-g++\qmake.conf D:\Qt\5.14.1\mingw73_64\mkspecs\features\spec_post.prf .qmake.stash D:\Qt\5.14.1\mingw73_64\mkspecs\features\exclusive_builds.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\toolchain.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\default_pre.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\win32\default_pre.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\resolve_config.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\default_post.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\win32\console.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\qml_debug.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\precompile_header.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\warn_on.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\qmake_use.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\file_copies.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\testcase_targets.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\exceptions.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\yacc.prf D:\Qt\5.14.1\mingw73_64\mkspecs\features\lex.prf ..\gra_sfml\gra_sfml.pro      
 
 clean: compiler_clean 
-	-$(DEL_FILE) boss_sprite.o character_sprite.o collision.o general.o main.o map_sprite.o my_text.o obstacle_sprite.o
+	-$(DEL_FILE) boss_sprite.o character_sprite.o collision.o general.o main.o map_sprite.o my_sound.o my_text.o obstacle_sprite.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -471,7 +476,7 @@ compiler_clean:
 ####### Compile
 
 boss_sprite.o: ../gra_sfml/boss_sprite.cpp ../gra_sfml/boss_sprite.h \
-		../gra_sfml/general.h \
+		../gra_sfml/headers.h \
 		../../SFML-2.5.1/include/SFML/Graphics.hpp \
 		../../SFML-2.5.1/include/SFML/Window.hpp \
 		../../SFML-2.5.1/include/SFML/System.hpp \
@@ -563,11 +568,16 @@ boss_sprite.o: ../gra_sfml/boss_sprite.cpp ../gra_sfml/boss_sprite.h \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
-		../gra_sfml/collision.h
+		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
+		../gra_sfml/character_sprite.h \
+		../gra_sfml/obstacle_sprite.h \
+		../gra_sfml/my_text.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o boss_sprite.o ..\gra_sfml\boss_sprite.cpp
 
 character_sprite.o: ../gra_sfml/character_sprite.cpp ../gra_sfml/character_sprite.h \
-		../gra_sfml/general.h \
+		../gra_sfml/headers.h \
 		../../SFML-2.5.1/include/SFML/Graphics.hpp \
 		../../SFML-2.5.1/include/SFML/Window.hpp \
 		../../SFML-2.5.1/include/SFML/System.hpp \
@@ -659,7 +669,12 @@ character_sprite.o: ../gra_sfml/character_sprite.cpp ../gra_sfml/character_sprit
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
-		../gra_sfml/collision.h
+		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
+		../gra_sfml/obstacle_sprite.h \
+		../gra_sfml/my_text.h \
+		../gra_sfml/boss_sprite.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o character_sprite.o ..\gra_sfml\character_sprite.cpp
 
 collision.o: ../gra_sfml/collision.cpp ../gra_sfml/collision.h \
@@ -834,8 +849,7 @@ general.o: ../gra_sfml/general.cpp ../gra_sfml/general.h \
 		../gra_sfml/collision.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o general.o ..\gra_sfml\general.cpp
 
-main.o: ../gra_sfml/main.cpp ../gra_sfml/map_sprite.h \
-		../gra_sfml/general.h \
+main.o: ../gra_sfml/main.cpp ../gra_sfml/headers.h \
 		../../SFML-2.5.1/include/SFML/Graphics.hpp \
 		../../SFML-2.5.1/include/SFML/Window.hpp \
 		../../SFML-2.5.1/include/SFML/System.hpp \
@@ -928,6 +942,8 @@ main.o: ../gra_sfml/main.cpp ../gra_sfml/map_sprite.h \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
 		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
 		../gra_sfml/character_sprite.h \
 		../gra_sfml/obstacle_sprite.h \
 		../gra_sfml/my_text.h \
@@ -1030,102 +1046,8 @@ map_sprite.o: ../gra_sfml/map_sprite.cpp ../gra_sfml/map_sprite.h \
 		../gra_sfml/collision.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map_sprite.o ..\gra_sfml\map_sprite.cpp
 
-my_text.o: ../gra_sfml/my_text.cpp ../gra_sfml/my_text.h \
-		../../SFML-2.5.1/include/SFML/Graphics.hpp \
-		../../SFML-2.5.1/include/SFML/Window.hpp \
-		../../SFML-2.5.1/include/SFML/System.hpp \
-		../../SFML-2.5.1/include/SFML/Config.hpp \
-		../../SFML-2.5.1/include/SFML/System/Clock.hpp \
-		../../SFML-2.5.1/include/SFML/System/Export.hpp \
-		../../SFML-2.5.1/include/SFML/System/Time.hpp \
-		../../SFML-2.5.1/include/SFML/System/Err.hpp \
-		../../SFML-2.5.1/include/SFML/System/FileInputStream.hpp \
-		../../SFML-2.5.1/include/SFML/System/InputStream.hpp \
-		../../SFML-2.5.1/include/SFML/System/NonCopyable.hpp \
-		../../SFML-2.5.1/include/SFML/System/Lock.hpp \
-		../../SFML-2.5.1/include/SFML/System/MemoryInputStream.hpp \
-		../../SFML-2.5.1/include/SFML/System/Mutex.hpp \
-		../../SFML-2.5.1/include/SFML/System/Sleep.hpp \
-		../../SFML-2.5.1/include/SFML/System/String.hpp \
-		../../SFML-2.5.1/include/SFML/System/Utf.hpp \
-		../../SFML-2.5.1/include/SFML/System/Utf.inl \
-		../../SFML-2.5.1/include/SFML/System/String.inl \
-		../../SFML-2.5.1/include/SFML/System/Thread.hpp \
-		../../SFML-2.5.1/include/SFML/System/Thread.inl \
-		../../SFML-2.5.1/include/SFML/System/ThreadLocal.hpp \
-		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.hpp \
-		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.inl \
-		../../SFML-2.5.1/include/SFML/System/Vector2.hpp \
-		../../SFML-2.5.1/include/SFML/System/Vector2.inl \
-		../../SFML-2.5.1/include/SFML/System/Vector3.hpp \
-		../../SFML-2.5.1/include/SFML/System/Vector3.inl \
-		../../SFML-2.5.1/include/SFML/Window/Clipboard.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Export.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Context.hpp \
-		../../SFML-2.5.1/include/SFML/Window/GlResource.hpp \
-		../../SFML-2.5.1/include/SFML/Window/ContextSettings.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Cursor.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Event.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Joystick.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Keyboard.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Mouse.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Sensor.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Touch.hpp \
-		../../SFML-2.5.1/include/SFML/Window/VideoMode.hpp \
-		../../SFML-2.5.1/include/SFML/Window/Window.hpp \
-		../../SFML-2.5.1/include/SFML/Window/WindowHandle.hpp \
-		../../SFML-2.5.1/include/SFML/Window/WindowStyle.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Export.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/CircleShape.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Shape.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Drawable.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/RenderStates.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Transform.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Rect.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Rect.inl \
-		../../SFML-2.5.1/include/SFML/Graphics/Transformable.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/VertexArray.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Vertex.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Color.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/PrimitiveType.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/ConvexShape.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Font.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Glyph.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Texture.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Image.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/RectangleShape.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/RenderTarget.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/View.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/RenderTexture.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/RenderWindow.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Shader.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Glsl.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
-		../../SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/Text.hpp \
-		../../SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
-		../../SFML-2.5.1/include/SFML/Audio.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/Export.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/Listener.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/Music.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/Sound.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
-		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
-		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_text.o ..\gra_sfml\my_text.cpp
-
-obstacle_sprite.o: ../gra_sfml/obstacle_sprite.cpp ../gra_sfml/obstacle_sprite.h \
-		../gra_sfml/general.h \
+my_sound.o: ../gra_sfml/my_sound.cpp ../gra_sfml/my_sound.h \
+		../gra_sfml/headers.h \
 		../../SFML-2.5.1/include/SFML/Graphics.hpp \
 		../../SFML-2.5.1/include/SFML/Window.hpp \
 		../../SFML-2.5.1/include/SFML/System.hpp \
@@ -1217,7 +1139,215 @@ obstacle_sprite.o: ../gra_sfml/obstacle_sprite.cpp ../gra_sfml/obstacle_sprite.h
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
 		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
-		../gra_sfml/collision.h
+		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
+		../gra_sfml/character_sprite.h \
+		../gra_sfml/obstacle_sprite.h \
+		../gra_sfml/my_text.h \
+		../gra_sfml/boss_sprite.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_sound.o ..\gra_sfml\my_sound.cpp
+
+my_text.o: ../gra_sfml/my_text.cpp ../gra_sfml/my_text.h \
+		../gra_sfml/headers.h \
+		../../SFML-2.5.1/include/SFML/Graphics.hpp \
+		../../SFML-2.5.1/include/SFML/Window.hpp \
+		../../SFML-2.5.1/include/SFML/System.hpp \
+		../../SFML-2.5.1/include/SFML/Config.hpp \
+		../../SFML-2.5.1/include/SFML/System/Clock.hpp \
+		../../SFML-2.5.1/include/SFML/System/Export.hpp \
+		../../SFML-2.5.1/include/SFML/System/Time.hpp \
+		../../SFML-2.5.1/include/SFML/System/Err.hpp \
+		../../SFML-2.5.1/include/SFML/System/FileInputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/InputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/NonCopyable.hpp \
+		../../SFML-2.5.1/include/SFML/System/Lock.hpp \
+		../../SFML-2.5.1/include/SFML/System/MemoryInputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/Mutex.hpp \
+		../../SFML-2.5.1/include/SFML/System/Sleep.hpp \
+		../../SFML-2.5.1/include/SFML/System/String.hpp \
+		../../SFML-2.5.1/include/SFML/System/Utf.hpp \
+		../../SFML-2.5.1/include/SFML/System/Utf.inl \
+		../../SFML-2.5.1/include/SFML/System/String.inl \
+		../../SFML-2.5.1/include/SFML/System/Thread.hpp \
+		../../SFML-2.5.1/include/SFML/System/Thread.inl \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocal.hpp \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.hpp \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.inl \
+		../../SFML-2.5.1/include/SFML/System/Vector2.hpp \
+		../../SFML-2.5.1/include/SFML/System/Vector2.inl \
+		../../SFML-2.5.1/include/SFML/System/Vector3.hpp \
+		../../SFML-2.5.1/include/SFML/System/Vector3.inl \
+		../../SFML-2.5.1/include/SFML/Window/Clipboard.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Context.hpp \
+		../../SFML-2.5.1/include/SFML/Window/GlResource.hpp \
+		../../SFML-2.5.1/include/SFML/Window/ContextSettings.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Cursor.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Event.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Joystick.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Keyboard.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Mouse.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Sensor.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Touch.hpp \
+		../../SFML-2.5.1/include/SFML/Window/VideoMode.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Window.hpp \
+		../../SFML-2.5.1/include/SFML/Window/WindowHandle.hpp \
+		../../SFML-2.5.1/include/SFML/Window/WindowStyle.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/CircleShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Shape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Drawable.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderStates.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Transform.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Rect.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Rect.inl \
+		../../SFML-2.5.1/include/SFML/Graphics/Transformable.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/VertexArray.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Vertex.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Color.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/PrimitiveType.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/ConvexShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Font.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glyph.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Texture.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Image.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RectangleShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderTarget.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/View.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderTexture.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderWindow.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Shader.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glsl.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
+		../../SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Text.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
+		../../SFML-2.5.1/include/SFML/Audio.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Listener.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Music.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Sound.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
+		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
+		../gra_sfml/character_sprite.h \
+		../gra_sfml/obstacle_sprite.h \
+		../gra_sfml/boss_sprite.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o my_text.o ..\gra_sfml\my_text.cpp
+
+obstacle_sprite.o: ../gra_sfml/obstacle_sprite.cpp ../gra_sfml/obstacle_sprite.h \
+		../gra_sfml/headers.h \
+		../../SFML-2.5.1/include/SFML/Graphics.hpp \
+		../../SFML-2.5.1/include/SFML/Window.hpp \
+		../../SFML-2.5.1/include/SFML/System.hpp \
+		../../SFML-2.5.1/include/SFML/Config.hpp \
+		../../SFML-2.5.1/include/SFML/System/Clock.hpp \
+		../../SFML-2.5.1/include/SFML/System/Export.hpp \
+		../../SFML-2.5.1/include/SFML/System/Time.hpp \
+		../../SFML-2.5.1/include/SFML/System/Err.hpp \
+		../../SFML-2.5.1/include/SFML/System/FileInputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/InputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/NonCopyable.hpp \
+		../../SFML-2.5.1/include/SFML/System/Lock.hpp \
+		../../SFML-2.5.1/include/SFML/System/MemoryInputStream.hpp \
+		../../SFML-2.5.1/include/SFML/System/Mutex.hpp \
+		../../SFML-2.5.1/include/SFML/System/Sleep.hpp \
+		../../SFML-2.5.1/include/SFML/System/String.hpp \
+		../../SFML-2.5.1/include/SFML/System/Utf.hpp \
+		../../SFML-2.5.1/include/SFML/System/Utf.inl \
+		../../SFML-2.5.1/include/SFML/System/String.inl \
+		../../SFML-2.5.1/include/SFML/System/Thread.hpp \
+		../../SFML-2.5.1/include/SFML/System/Thread.inl \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocal.hpp \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.hpp \
+		../../SFML-2.5.1/include/SFML/System/ThreadLocalPtr.inl \
+		../../SFML-2.5.1/include/SFML/System/Vector2.hpp \
+		../../SFML-2.5.1/include/SFML/System/Vector2.inl \
+		../../SFML-2.5.1/include/SFML/System/Vector3.hpp \
+		../../SFML-2.5.1/include/SFML/System/Vector3.inl \
+		../../SFML-2.5.1/include/SFML/Window/Clipboard.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Context.hpp \
+		../../SFML-2.5.1/include/SFML/Window/GlResource.hpp \
+		../../SFML-2.5.1/include/SFML/Window/ContextSettings.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Cursor.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Event.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Joystick.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Keyboard.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Mouse.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Sensor.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Touch.hpp \
+		../../SFML-2.5.1/include/SFML/Window/VideoMode.hpp \
+		../../SFML-2.5.1/include/SFML/Window/Window.hpp \
+		../../SFML-2.5.1/include/SFML/Window/WindowHandle.hpp \
+		../../SFML-2.5.1/include/SFML/Window/WindowStyle.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/CircleShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Shape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Drawable.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderStates.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Transform.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Rect.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Rect.inl \
+		../../SFML-2.5.1/include/SFML/Graphics/Transformable.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/VertexArray.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Vertex.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Color.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/PrimitiveType.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/ConvexShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Font.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glyph.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Texture.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Image.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RectangleShape.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderTarget.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/View.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderTexture.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/RenderWindow.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Shader.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glsl.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Glsl.inl \
+		../../SFML-2.5.1/include/SFML/Graphics/Sprite.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/Text.hpp \
+		../../SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
+		../../SFML-2.5.1/include/SFML/Audio.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Export.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Listener.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Music.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/Sound.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
+		../../SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp \
+		../gra_sfml/collision.h \
+		../gra_sfml/general.h \
+		../gra_sfml/map_sprite.h \
+		../gra_sfml/character_sprite.h \
+		../gra_sfml/my_text.h \
+		../gra_sfml/boss_sprite.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obstacle_sprite.o ..\gra_sfml\obstacle_sprite.cpp
 
 ####### Install

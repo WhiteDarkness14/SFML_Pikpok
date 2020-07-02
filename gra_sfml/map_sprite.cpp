@@ -1,5 +1,5 @@
 ﻿#include "map_sprite.h"
-#include "collision.h"
+//#include "collision.h"
 
 map_Sprite::map_Sprite(string title,int posX, int posY,int originX, int originY)
 {

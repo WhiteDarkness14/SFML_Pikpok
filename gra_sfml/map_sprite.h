@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "general.h"
-
 class map_Sprite: public general
 {
 public:

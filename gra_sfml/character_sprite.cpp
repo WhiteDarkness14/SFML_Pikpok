@@ -1,5 +1,5 @@
 ﻿#include "character_sprite.h"
-#include "collision.h"
+//#include "collision.h"
 
 character_Sprite::character_Sprite(string title, float OriginX, float OriginY, float PosX, float PosY)
 {

@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "general.h"
-
+#include "headers.h"
 class boss_Sprite :public general
 {
 public:

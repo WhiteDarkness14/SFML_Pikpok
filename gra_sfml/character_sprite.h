@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include "general.h"
-
+#include "headers.h"
 class character_Sprite: public general
 {
 
