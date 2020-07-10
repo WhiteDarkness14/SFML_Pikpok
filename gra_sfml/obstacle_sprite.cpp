@@ -101,7 +101,7 @@ void generate_flame(vector<obstacle_Sprite>&flame_dino)
         if(flame_dino[i].to_move==false)
         {
             flame_dino[i].to_move=true;
-            flame_dino[i].setPosition(1400,600);
+            flame_dino[i].setPosition(1400,650);
             break;
         }
     }

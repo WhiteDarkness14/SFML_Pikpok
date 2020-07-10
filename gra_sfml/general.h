@@ -16,3 +16,4 @@ public:
 };
 
 void window_set(RenderWindow &window);
+void counter(float &total_time, int &score, int &score_boss, const bool boss_MODE, const bool run);

@@ -1,5 +1,4 @@
-﻿#ifndef MY_SOUND_H
-#define MY_SOUND_H
+﻿#pragma once
 #include "headers.h"
 
 class my_sound: public Sound
@@ -10,5 +9,3 @@ public:
 private:
     SoundBuffer buffer;
 };
-
-#endif // MY_SOUND_H
